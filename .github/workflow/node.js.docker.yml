@@ -1,0 +1,37 @@
+name: Node.js CI with Docker
+
+on:
+  push:
+    branches: ["dev"]
+
+
+jobs:
+  build:
+    runs-on: self-hosted
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - run: |
+           touch .env
+           echo "MONGODB_URL = ${{ secrets.MONGODB_URL }}" > .env
+           echo "PORT = ${{ secrets.PORT_DEV }}" >> .env
+
+
+    - name: Build Docker Image
+      run: |
+        docker build -t nodeapi .
+
+    - name: Stop & Remove Old Container (if running)
+      run: |
+        docker stop nodeapi || true
+        docker rm nodeapi || true
+
+    - name: Run New Container
+      run: |
+        docker run -d \
+          --name nodeapi \
+          -p 5000:5000 \
+          nodeapi
+
+    
