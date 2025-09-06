@@ -30,3 +30,4 @@ jobs:
            touch .env
            echo "MONGODB_URL = ${{ secrets.MONGODB_URL }}" > .env
            echo "PORT = ${{ secrets.PORT }}" >> .env
+    - run: pm2 restart nodeapi
