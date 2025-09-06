@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on: ["self-hosted","dev-runner"]
+    runs-on: [self-hosted, dev-runners]
 
     steps:
     - uses: actions/checkout@v4
