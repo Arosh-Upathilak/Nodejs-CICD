@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on: self-hosted
+    runs-on: ["self-hosted","dev-runner"]
 
     steps:
     - uses: actions/checkout@v4
@@ -20,16 +20,16 @@ jobs:
 
     - name: Build Docker Image
       run: |
-        sudo docker build -t nodeapi .
+        docker build -t nodeapi .
 
     - name: Stop & Remove Old Container (if running)
       run: |
-        sudo docker stop nodeapi || true
-        sudo docker rm nodeapi || true
+        docker stop nodeapi || true
+        docker rm nodeapi || true
 
     - name: Run New Container
       run: |
-        sudo docker run -d \
+        docker run -d \
           --name nodeapi \
           -p 5000:5000 \
           nodeapi
