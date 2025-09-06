@@ -20,16 +20,16 @@ jobs:
 
     - name: Build Docker Image
       run: |
-        docker build -t nodeapi .
+        sudo docker build -t nodeapi .
 
     - name: Stop & Remove Old Container (if running)
       run: |
-        docker stop nodeapi || true
-        docker rm nodeapi || true
+        sudo docker stop nodeapi || true
+        sudo docker rm nodeapi || true
 
     - name: Run New Container
       run: |
-        docker run -d \
+        sudo docker run -d \
           --name nodeapi \
           -p 5000:5000 \
           nodeapi
